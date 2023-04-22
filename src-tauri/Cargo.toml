@@ -1,9 +1,9 @@
 [package]
 name = "stock-screener"
-version = "0.0.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
+version = "0.0.1"
+description = "Stock Screener"
+authors = ["ritik ranjan"]
+license = "MIT"
 repository = ""
 edition = "2021"
 
