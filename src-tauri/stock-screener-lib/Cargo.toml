@@ -9,6 +9,9 @@ repository = ""
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[profile.release]
+opt-level = 3
+
 [dev-dependencies]
 tokio = { version = "1.21.2", features = ["full"] }
 tokio-test = { version = "0.4.2"}
