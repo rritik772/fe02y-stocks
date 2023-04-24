@@ -1,53 +1,49 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
-import "./App.css";
+import { Accordion, Container, Grid } from "@mantine/core";
+import NseComponent from "./components/nse/NseComponent";
+import Stock from "./components/stock/Stock";
+import WatchList from "./components/watchlist/WatchList";
+import { UseAppSwitcher } from "./context/AppSwitcher";
+import { Switches } from "./models/AppSwitcherModel";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const { currentSwitch, setCurrentSwitch } = UseAppSwitcher();
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const getComponent = () => {
+    switch (currentSwitch) {
+      case Switches.NSE:
+        return <NseComponent />;
+      case Switches.TrdParty:
+        return <div>TrdParty</div>;
+      case Switches.Playground:
+        return <div>Playground</div>;
+      default:
+        return <div>Default</div>;
+    }
+  };
 
-  return (
-    <div className="container">
-      <h1>Welcome to Tauri!</h1>
+  return <div>
+    <Grid grow gutter='lg'>
 
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
+      <Grid.Col span={8}>
+        {getComponent()}
+      </Grid.Col>
 
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
+      <Grid.Col span={4}>
+        <Accordion variant="contained" className="sticky-accord">
+          <Accordion.Item value="Stock">
+            <Accordion.Control>Stock Details</Accordion.Control>
+            <Accordion.Panel><Stock /></Accordion.Panel>
+          </Accordion.Item>
 
-      <div className="row">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            greet();
-          }}
-        >
-          <input
-            id="greet-input"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="Enter a name..."
-          />
-          <button type="submit">Greet</button>
-        </form>
-      </div>
-      <p>{greetMsg}</p>
-    </div>
-  );
+          <Accordion.Item value="watchlist">
+            <Accordion.Control>WatchList</Accordion.Control>
+            <Accordion.Panel><WatchList /></Accordion.Panel>
+          </Accordion.Item>
+        </Accordion>
+      </Grid.Col>
+
+    </Grid>
+  </div >;
 }
 
 export default App;
