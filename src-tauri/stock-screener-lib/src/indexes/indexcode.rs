@@ -1,5 +1,8 @@
 use std::fmt::Display;
 
+use serde::{Serialize, Deserialize};
+
+#[derive(Debug, Deserialize, Serialize)]
 pub enum IndexCode {
     Banknifty,
     Finnifty,

@@ -1,13 +1,13 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use reqwest::{get, StatusCode};
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct AllStockResponse {
     status: String,
-    date: Vec<Company>,
+    data: Vec<Company>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Company {
     #[serde(rename = "CompanyName")]
     pub company_name: String,

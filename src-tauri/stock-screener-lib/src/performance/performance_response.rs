@@ -1,12 +1,12 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct PerformanceResponse {
     status: String,
     data: Vec<PerformanceStock>
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct PerformanceStock {
     #[serde(rename="CompanyName")]
     pub company_name: String,

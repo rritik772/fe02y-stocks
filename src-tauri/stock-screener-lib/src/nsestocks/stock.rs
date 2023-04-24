@@ -1,16 +1,16 @@
 use std::collections::HashMap;
 
 use reqwest::{get, StatusCode};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Stock {
     status: String,
     data: HashMap<String, StockData>,
 }
 
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct StockData {
     #[serde(rename="NSECode")]
     pub nsecode: String,

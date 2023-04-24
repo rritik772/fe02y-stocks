@@ -1,6 +1,6 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize, PartialEq, PartialOrd)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, PartialOrd)]
 pub struct StockCandle {
     #[serde(rename="NSECode")]
     pub nsecode: String,
@@ -27,7 +27,7 @@ pub struct StockCandle {
     pub day_change_percentage: String,
 }
 
-#[derive(Debug, Deserialize, PartialEq, PartialOrd)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, PartialOrd)]
 pub struct IndexResponse {
     pub status: String,
     pub data: Vec<StockCandle>,
