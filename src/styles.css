@@ -3,3 +3,8 @@
 * {
   font-family: "Rubik";
 }
+
+.sticky-accord {
+  position: sticky;
+  top: 100px;
+}
