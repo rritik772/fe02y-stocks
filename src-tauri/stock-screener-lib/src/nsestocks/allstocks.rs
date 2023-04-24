@@ -54,7 +54,7 @@ pub struct Company {
 
 const URL: &str = "https://api.stockmarketapi.in/api/v1/allstocks";
 
-pub async fn get_all_stocks(api_key: String) -> Result<AllStockResponse, StatusCode> {
+pub async fn get_all_stocks(api_key: String) -> Result<AllStockResponse, u16> {
     let url = format!("{URL}?token={api_key}");
     let response = get(url).await.unwrap();
     let status = response.status();
@@ -65,5 +65,5 @@ pub async fn get_all_stocks(api_key: String) -> Result<AllStockResponse, StatusC
         return Ok(all_stocks);
     }
 
-    Err(status)
+    Err(status.as_u16())
 }

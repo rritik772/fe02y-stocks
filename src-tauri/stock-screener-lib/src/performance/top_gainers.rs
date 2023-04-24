@@ -4,7 +4,7 @@ use super::performance_response::PerformanceResponse;
 
 const URL: &str = "https://api.stockmarketapi.in/api/v1/topgainers";
 
-pub async fn get_top_gainers(api_key: String) -> Result<PerformanceResponse, StatusCode> {
+pub async fn get_top_gainers(api_key: String) -> Result<PerformanceResponse, u16> {
     let url = format!("{URL}?token={api_key}");
     let response = get(&url).await.unwrap();
     let status = response.status();
@@ -15,7 +15,7 @@ pub async fn get_top_gainers(api_key: String) -> Result<PerformanceResponse, Sta
         return Ok(gainers);
     }
 
-    Err(status)
+    Err(status.as_u16())
 }
 
 #[cfg(test)]

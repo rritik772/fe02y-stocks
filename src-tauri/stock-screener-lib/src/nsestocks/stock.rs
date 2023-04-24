@@ -49,7 +49,7 @@ pub struct StockData {
 
 const URL: &str = "https://api.stockmarketapi.in/api/v1/getprices";
 
-async fn get_stock_data(api_key: String, stocks: Vec<String>) -> Result<Stock, StatusCode> {
+pub async fn get_stock_data(api_key: String, stocks: Vec<String>) -> Result<Stock, u16> {
     let codes = stocks.join(",");
     let url = format!("{URL}?token={api_key}&nsecode={codes}");
 
@@ -62,7 +62,7 @@ async fn get_stock_data(api_key: String, stocks: Vec<String>) -> Result<Stock, S
         return Ok(stocks);
     }
 
-    Err(status)
+    Err(status.as_u16())
 }
 
 #[cfg(test)]

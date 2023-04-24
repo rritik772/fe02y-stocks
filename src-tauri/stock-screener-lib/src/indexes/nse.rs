@@ -1,7 +1,5 @@
-use crate::indexes::{
-    index_response::IndexResponse,
-    indexcode::IndexCode,
-};
+use crate::indexes::index_response::IndexResponse;
+use crate::indexes::indexcode::IndexCode;
 use reqwest::{get, StatusCode};
 
 const URL: &str = "https://api.stockmarketapi.in/api/v1/indexprice";
@@ -9,7 +7,7 @@ const URL: &str = "https://api.stockmarketapi.in/api/v1/indexprice";
 pub async fn get_index_data(
     api_key: String,
     indexes: Vec<IndexCode>,
-) -> Result<IndexResponse, StatusCode> {
+) -> Result<IndexResponse, u16> {
     let indexes = indexes
         .iter()
         .map(|index| index.to_string())
@@ -27,7 +25,7 @@ pub async fn get_index_data(
         return Ok(index_response);
     }
 
-    Err(status)
+    Err(status.as_u16())
 }
 
 #[cfg(test)]
@@ -40,11 +38,6 @@ mod test {
     #[tokio::test]
     async fn get_index_data_test() {
         let api = env::var("API").unwrap();
-        let _response = get_index_data(
-            api,
-            vec![IndexCode::Nifty],
-        )
-        .await
-        .unwrap();
+        let _response = get_index_data(api, vec![IndexCode::Nifty]).await.unwrap();
     }
 }
