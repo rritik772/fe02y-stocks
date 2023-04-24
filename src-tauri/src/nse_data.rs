@@ -6,6 +6,25 @@ use stock_screener_lib::{
 
 #[tauri::command]
 pub async fn get_index_data(api_key: String, indexes: Vec<IndexCode>) -> Result<IndexResponse, u16> {
+    if indexes.len() == 0 {
+        let indexes = vec![
+            IndexCode::Banknifty,
+            IndexCode::Finnifty,
+            IndexCode::Nifty,
+            IndexCode::Nifty100,
+            IndexCode::Niftyauto,
+            IndexCode::Niftyfmcg,
+            IndexCode::Niftyit,
+            IndexCode::Niftymedia,
+            IndexCode::Niftymetal,
+            IndexCode::Niftymidcap,
+            IndexCode::Niftypharma,
+            IndexCode::Niftypsubank,
+            IndexCode::Niftypvtbank,
+            IndexCode::Niftyrealty,
+        ];
+        return nse::get_index_data(api_key, indexes).await;
+    }
     return nse::get_index_data(api_key, indexes).await;
 }
 
