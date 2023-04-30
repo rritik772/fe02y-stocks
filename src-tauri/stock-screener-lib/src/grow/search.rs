@@ -8,7 +8,6 @@ pub struct SearchData {
     content: Vec<content::Content>
 }
 
-const URL: &str = "https://groww.in/v1/api/search/v1/entity?app=false&page=0&q";
 
 pub async fn search(text: String) -> Result<SearchData, u16> {
     let url = format!("{URL}={text}");

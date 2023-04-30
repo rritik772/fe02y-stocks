@@ -1,8 +1,10 @@
 import { Accordion, Container, Grid } from "@mantine/core";
 import NseComponent from "./components/nse/NseComponent";
 import Stock from "./components/stock/Stock";
+import ThridParty from "./components/thridParty/ThridParty";
 import WatchList from "./components/watchlist/WatchList";
 import { UseAppSwitcher } from "./context/AppSwitcher";
+import { ThirdPartyContextProvider } from "./context/thridparty";
 import { Switches } from "./models/AppSwitcherModel";
 
 function App() {
@@ -13,7 +15,11 @@ function App() {
       case Switches.NSE:
         return <NseComponent />;
       case Switches.TrdParty:
-        return <div>TrdParty</div>;
+        return (
+          <ThirdPartyContextProvider>
+            <ThridParty />
+          </ThirdPartyContextProvider>
+        )
       case Switches.Playground:
         return <div>Playground</div>;
       default:

@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod nse_data;
+mod grow;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -18,7 +19,10 @@ fn main() {
             nse_data::get_all_stocks,
             nse_data::get_top_gainers,
             nse_data::get_top_losers,
-            nse_data::get_top_volumes
+            nse_data::get_top_volumes,
+
+            grow::get_stock,
+            grow::search_stock
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
