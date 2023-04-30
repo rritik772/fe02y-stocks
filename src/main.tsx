@@ -8,6 +8,7 @@ import GlobalCss from "./global";
 import { NseContextProvider } from "./context/nse";
 import { AppSwitcherProvider } from "./context/AppSwitcher";
 import { ListContextProvider } from "./context/ListContext";
+import { Notifications } from "@mantine/notifications";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       }}
     >
       <GlobalCss />
+      <Notifications />
       <AppSwitcherProvider>
         <ListContextProvider>
           <AppShell header={<HeaderComponent />}>

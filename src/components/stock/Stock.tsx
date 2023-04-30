@@ -1,4 +1,5 @@
 import { Table, Text } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { useEffect, useState } from "react";
 import { useListContext } from "../../context/ListContext";
 import { useNseContext } from "../../context/nse";
@@ -13,13 +14,34 @@ const StockComponent = () => {
   useEffect(() => {
 
     const stock_data = async () => {
+      // Notification
+      notifications.show({
+        id: `${stockdetails}`,
+        title: "Fetching data",
+        loading: true,
+        message: `${stockdetails}`
+      });
+      //
+
       if (get_stock_data === undefined) return;
 
       let response = await get_stock_data([stockdetails as string]);
-      setStock(response.data[stockdetails as string] as StockData)
+      let stockdetails_map = new Map(Object.entries(response.data));
+
+      setStock(stockdetails_map.get(stockdetails as string) as StockData)
+
+      // Notification
+      notifications.update({
+          id: `${stockdetails}`,
+          title: "Fetching data",
+          message: `${stockdetails} data fetched!`,
+          loading: false
+        })
+      //
     }
 
-    stock_data();
+    if (stockdetails !== undefined)
+      stock_data();
   }, [stockdetails])
 
   return (
